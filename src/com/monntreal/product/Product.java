@@ -1,16 +1,21 @@
 package com.monntreal.product;
 
-public class Product  {
+import com.monntreal.interfaces.ProductPricingService;
+
+import java.util.Objects;
+
+public abstract class Product  {
     private String productId;
     private double currentPrice;
-    //private int quantity;
 
-    public Product(String id, double currentPrice) {
+    public Product(String id) {
         this.productId = id;
-        this.currentPrice = currentPrice;
+
+
 
     }
 
+    public abstract Double price();
     public String getId() {
         return productId;
     }
@@ -25,5 +30,18 @@ public class Product  {
 
     public void setCurrentPrice(double currentPrice) {
         this.currentPrice = currentPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return Objects.equals(productId, product.productId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productId);
     }
 }

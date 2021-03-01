@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
 
 public class MontrealTrade implements MontrealTradedProducts {
     List<Product> productList = new ArrayList<>();
@@ -23,7 +23,10 @@ public class MontrealTrade implements MontrealTradedProducts {
 
     @Override
     public void trade(Product product, int quantity) {
-        productQuantityTraded.put(product,quantity);
+        if(!productList.contains(product))
+            productQuantityTraded.put(product,0);
+        int newQuantity = productQuantityTraded.get(product)!=null?productQuantityTraded.get(product)+quantity:quantity;
+        productQuantityTraded.put(product,newQuantity);
 
     }
 
@@ -37,8 +40,12 @@ public class MontrealTrade implements MontrealTradedProducts {
     @Override
     public double totalValueOfDaysTradedProducts() {
         double totalValue = 0;
-        for (Product key: productQuantityTraded.keySet())
-            totalValue += productQuantityTraded.get(key)*key.getCurrentPrice();
+        for (Product product: productQuantityTraded.keySet())
+            totalValue += productQuantityTraded.get(product)*product.price();
         return totalValue;
+    }
+
+    public int getLengthOfProductList(){
+        return productList.size();
     }
 }

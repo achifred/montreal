@@ -8,7 +8,7 @@ import com.monntreal.trade.MontrealTrade;
 public class Main {
     public static void main(String[] args) {
         MontrealTrade montrealTrade = new MontrealTrade();
-        Product stock = new Stock("prod1",50.9,"sticker","exch");
+        Product stock = new Stock("prod1","LON","APPL");
         try {
             montrealTrade.addNewProduct(stock);
         }catch (ProductAlreadyRegisteredException e){
